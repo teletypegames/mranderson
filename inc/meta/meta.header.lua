@@ -1,7 +1,7 @@
 -- title:   Mr Anderson's Adventure
 -- author:  Zsolt Tasnadi
 -- desc:    Life of a programmer in the Vector
--- site:    https://github.com/rastasi/mranderson
+-- site:    https://games.teletype.hu
 -- license: MIT License
--- version: 0.15
+-- version: 0.1
 -- script:  lua
