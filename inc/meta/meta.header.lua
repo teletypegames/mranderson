@@ -1,4 +1,5 @@
 -- title:   Mr Anderson's Adventure
+-- name:    mranderson
 -- author:  Zsolt Tasnadi
 -- desc:    Life of a programmer in the Vector
 -- site:    https://games.teletype.hu
