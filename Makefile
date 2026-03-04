@@ -21,7 +21,7 @@ DROPAREA_HOST ?= vps.teletype.hu
 DROPAREA_PORT ?= 2223
 DROPAREA_TARGET_PATH ?= /home/drop
 DROPAREA_USER ?= drop
-UPDATE_SERVER ?= https://games.vps.teletype.hu
+UPDATE_SERVER ?= https://games.teletype.hu
 
 all: build
 
