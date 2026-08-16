@@ -39,15 +39,15 @@ function ConfigurationWindow.draw()
   for i, control in ipairs(ConfigurationWindow.controls) do
     local current_y = y_start + (i - 1) * 12
     local color = Config.colors.green
-    
+
     if control.type == "numeric_stepper" then
       local value = control.get()
       local label_text = control.label
       local value_text = string.format(control.format, value)
-      
+
       -- Calculate x position for right-aligned value
       local value_x = x_value_right_align - (#value_text * char_width)
-      
+
       if i == ConfigurationWindow.selected_control then
         color = Config.colors.item
         Print.text("<", x_start -8, current_y, color)
@@ -70,7 +70,7 @@ function ConfigurationWindow.draw()
       end
     end
   end
-  
+
   Print.text("Press B to go back", x_start, 120, Config.colors.light_grey)
 end
 

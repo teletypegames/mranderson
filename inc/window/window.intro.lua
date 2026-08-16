@@ -1,9 +1,9 @@
-function IntroWindow.draw() 
+function IntroWindow.draw()
   local x = (Config.screen.width - 132) / 2 -- Centered text
   Print.text(Context.intro.text, x, Context.intro.y, Config.colors.green)
 end
 
-function IntroWindow.update() 
+function IntroWindow.update()
   Context.intro.y = Context.intro.y - Context.intro.speed
 
   -- Count lines in intro text to determine when scrolling is done

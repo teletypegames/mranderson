@@ -35,7 +35,7 @@ end
 function UI.word_wrap(text, max_chars_per_line)
     if text == nil then return {""} end
     local lines = {}
-    
+
     for input_line in (text .. "\n"):gmatch("(.-)\n") do
         local current_line = ""
         local words_in_line = 0
@@ -50,18 +50,18 @@ function UI.word_wrap(text, max_chars_per_line)
                 current_line = word
             end
         end
-        
+
         if words_in_line > 0 then
             table.insert(lines, current_line)
         else
             table.insert(lines, "")
         end
     end
-    
+
     if #lines == 0 then
         return {""}
     end
-    
+
     return lines
 end
 

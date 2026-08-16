@@ -45,7 +45,7 @@ function init_game()
 end
 
 function TIC()
-  init_game() 
+  init_game()
 
   cls(Config.colors.black)
   local handler = STATE_HANDLERS[Context.active_window]

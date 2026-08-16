@@ -53,7 +53,7 @@ function MenuWindow.refresh_menu_items()
   table.insert(Context.menu_items, {label = "Load Game", action = MenuWindow.load_game})
   table.insert(Context.menu_items, {label = "Configuration", action = MenuWindow.configuration})
   table.insert(Context.menu_items, {label = "Exit", action = MenuWindow.exit})
-  
+
   Context.selected_menu_item = 1 -- Reset selection after refreshing
 end
 

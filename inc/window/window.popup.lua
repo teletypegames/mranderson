@@ -52,7 +52,7 @@ function PopupWindow.update()
         selected_item.action()
       end
     end
-    
+
     if Input.menu_back() then
       GameWindow.set_state(WINDOW_GAME)
     end
@@ -92,7 +92,7 @@ function PopupWindow.draw()
     Print.text(line, 50, current_y, Config.colors.light_grey)
     current_y = current_y + 8 -- Move to the next line (8 pixels for default font height + padding)
   end
-  
+
   -- Adjust menu position based on the number of wrapped lines
   if not Context.dialog.showing_description then
     UI.draw_menu(Context.dialog.menu_items, Context.dialog.selected_menu_item, 50, current_y + 2)
