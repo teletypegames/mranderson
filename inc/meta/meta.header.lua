@@ -3,6 +3,6 @@
 -- author:  Zsolt Tasnadi
 -- desc:    Life of a programmer in the Vector
 -- site:    https://games.teletype.hu
--- license: MIT License
+-- license: MIT
 -- version: 0.1
 -- script:  lua
