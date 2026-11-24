@@ -14,14 +14,7 @@ SRC        = $(shell sed 's|^|$(SRC_DIR)/|' $(ORDER))
 
 ASSETS_LUA = inc/meta/meta.assets.lua
 
-# CI/CD variables
-VERSION_FILE = .version
 GAME_LANG ?= lua
-DROPAREA_HOST ?= vps.teletype.hu
-DROPAREA_PORT ?= 2223
-DROPAREA_TARGET_PATH ?= /home/drop
-DROPAREA_USER ?= drop
-UPDATE_SERVER ?= https://teletypegames.org
 
 all: build
 
@@ -116,44 +109,5 @@ clean:
 	@rm -f $(PROJECT)-win.exe $(PROJECT)-linux $(PROJECT)-mac
 	@echo "==> Cleaned build artifacts"
 
-# CI/CD Targets
-ci-version:
-	@VERSION=$$(sed -n "s/^-- version: //p" inc/meta/meta.header.lua | head -n 1 | tr -d "[:space:]"); \
-	BRANCH=$${CI_COMMIT_BRANCH:-$${WOODPECKER_BRANCH}}; \
-	if [ "$$BRANCH" != "main" ] && [ "$$BRANCH" != "master" ] && [ -n "$$BRANCH" ]; then \
-		VERSION=dev-$$VERSION-$$BRANCH; \
-	fi; \
-	echo "VERSION is: $$VERSION"; \
-	echo $$VERSION > $(VERSION_FILE)
-
-ci-export:
-	@VERSION=$$(cat $(VERSION_FILE)); \
-	echo "==> Building and exporting version $$VERSION"; \
-	$(MAKE) export VERSION=$$VERSION
-
-ci-binaries:
-	@VERSION=$$(cat $(VERSION_FILE)); \
-	$(MAKE) binaries VERSION=$$VERSION
-
-ci-upload:
-	@VERSION=$$(cat $(VERSION_FILE)); \
-	echo "==> Uploading artifacts for version $$VERSION"; \
-	ls -lh $(PROJECT)-$$VERSION.* $(PROJECT).tic $(PROJECT).html.zip 2>/dev/null || true; \
-	cp $(PROJECT).lua $(PROJECT)-$$VERSION.lua; \
-	FILE_LUA=$(PROJECT)-$$VERSION.lua; \
-	FILE_TIC=$(PROJECT)-$$VERSION.tic; \
-	FILE_HTML_ZIP=$(PROJECT)-$$VERSION.html.zip; \
-	BINS=""; \
-	for slug in $(BINARY_SLUGS); do \
-		[ -f "$(PROJECT)-$$VERSION-$$slug.zip" ] && BINS="$$BINS $(PROJECT)-$$VERSION-$$slug.zip"; \
-	done; \
-	SCP_TARGET="$(DROPAREA_USER)@$(DROPAREA_HOST):$(DROPAREA_TARGET_PATH)/"; \
-	sshpass -p "$(DROPAREA_SSH_PASSWORD)" scp -o StrictHostKeyChecking=no -P $(DROPAREA_PORT) $$FILE_LUA $$FILE_TIC $$FILE_HTML_ZIP $$BINS $$SCP_TARGET
-
-ci-update:
-	@VERSION=$$(cat $(VERSION_FILE)); \
-	echo "==> Triggering update for version $$VERSION"; \
-	curl "$(UPDATE_SERVER)/update?secret=$(UPDATE_SECRET)&name=$(PROJECT)&platform=tic80&version=$$VERSION"
-
-.PHONY: all build export binaries watch import_assets export_assets clean ci-version ci-export ci-binaries ci-upload ci-update
+.PHONY: all build export binaries watch import_assets export_assets clean
 
